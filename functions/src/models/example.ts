@@ -1,8 +1,6 @@
 import {Base, Document} from "./base"
 import { firestore } from "firebase-admin"
-import * as moment from "moment"
 import { toDate } from "../utils/date"
-import { OtherExample, OTHER_EXAMPLE_OBJECT } from "./otherExample";
 
 export type ExampleDocument = Document & {
     id?: string
