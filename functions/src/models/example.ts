@@ -43,17 +43,4 @@ export class Example extends Base {
     async save() {
         return await super.save();
     }
-
-    async otherExampleExamples(otherExampleId) {
-        const snap = await this.db.where('otherExampleId', '==', otherExampleId).get()
-        if (!snap) return false
-        const examples = []
-        snap.forEach(example => {
-            let fields = example.data()
-            fields.id = example.id
-            fields = toDate(fields)
-            examples.push(fields)
-        })
-        return examples
-    }
 }
