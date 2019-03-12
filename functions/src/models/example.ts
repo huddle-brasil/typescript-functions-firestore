@@ -1,10 +1,6 @@
 import {Base, Document} from "./base"
 import { firestore } from "firebase-admin"
-<<<<<<< HEAD
 import { toMoment } from "../utils/date"
-=======
-import { toDate } from "../utils/date"
->>>>>>> 22fc1e3a3a337c1f50b8ee613feef54b03c03241
 
 export type ExampleDocument = Document & {
     id?: string
@@ -47,7 +43,6 @@ export class Example extends Base {
     async save() {
         return await super.save();
     }
-<<<<<<< HEAD
 
     async otherExampleExamples(otherExampleId) {
         const snap = await this.db.where('otherExampleId', '==', otherExampleId).get()
@@ -61,6 +56,4 @@ export class Example extends Base {
         })
         return examples
     }
-=======
->>>>>>> 22fc1e3a3a337c1f50b8ee613feef54b03c03241
 }
