@@ -1,8 +1,7 @@
 import { Request, Response } from "express"
-import { Example as Example, ExampleDocument, ExampleEnum } from "../models/example"
+import { Example, ExampleDocument } from "../models/example"
 import * as rp from "request-promise-native"
 import * as moment from 'moment-timezone';
-import { firestore } from "firebase-admin";
 import { toMoment } from "../utils/date";
 
 export class SoloGameController{
@@ -59,7 +58,7 @@ export class SoloGameController{
     async route_getOtherExampleExamplesJSON(req: Request, res: Response) {
         const otherExampleId = res.get("otherExampleId") || req.query.otherExampleId
         if (!otherExampleId) return res.status(400).send({"response": "otherExampleId is necessary"})
-        const examples: any = await new Example().otherExampleExamples(otherExampleId)
+        const examples: any = await new Example().loadByProperty("otherExampleId", otherExampleId)
         if (!examples) return res.status(422).send({"response": "error on get examples by otherExampleId"})
         return res.json({
             examples,

@@ -1,5 +1,10 @@
 import {db as _db} from "../main"
+<<<<<<< HEAD
 import { firestore } from "firebase-admin"
+=======
+import { firestore } from "firebase-admin";
+import { toDate } from "../utils/date"
+>>>>>>> 22fc1e3a3a337c1f50b8ee613feef54b03c03241
 
 export type Document = FirebaseFirestore.DocumentData & { 
     createdAt?: firestore.Timestamp,
@@ -51,10 +56,13 @@ export abstract class Base {
         if (!snap) return null
         const docs = []
         snap.forEach(doc => {
-            const fields = doc.data()
+            let fields = doc.data()
             fields.id = doc.id
+            fields = toDate(fields)
             docs.push({id: doc.id, fields})
         })
+        if (docs.length === 1) return docs[0]
+        if (docs instanceof Array && docs.length === 0) return false
         return docs
     }
 
