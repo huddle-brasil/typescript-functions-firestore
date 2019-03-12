@@ -3,7 +3,7 @@ import { Example as Example, ExampleDocument, ExampleEnum } from "../models/exam
 import * as rp from "request-promise-native"
 import * as moment from 'moment-timezone';
 import { firestore } from "firebase-admin";
-import { toDate } from "../utils/date";
+import { toMoment } from "../utils/date";
 
 export class SoloGameController{
     private async callEndpoint(body) {
@@ -31,7 +31,7 @@ export class SoloGameController{
             Object.assign(example.fields, doc)
             if (!await example.create()) return res.sendStatus(422)
             example.fields.id = example.id
-            example.fields = toDate(example.fields)
+            example.fields = toMoment(example.fields)
             return res.json({
                 "soloGame": example.fields,
                 "now": moment().tz('America/Sao_Paulo').format()
@@ -49,7 +49,7 @@ export class SoloGameController{
         const example = new Example()
         if (!await example.load(exampleId)) return res.status(400).send({"response": "example not found", exampleId: exampleId})
         example.fields.id = example.id
-        example.fields = toDate(example.fields)
+        example.fields = toMoment(example.fields)
         return res.json({
             "example": example.fields, 
             "now": moment().tz('America/Sao_Paulo').format()

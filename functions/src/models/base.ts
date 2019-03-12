@@ -1,5 +1,5 @@
 import {db as _db} from "../main"
-import { firestore } from "firebase-admin";
+import { firestore } from "firebase-admin"
 
 export type Document = FirebaseFirestore.DocumentData & { 
     createdAt?: firestore.Timestamp,

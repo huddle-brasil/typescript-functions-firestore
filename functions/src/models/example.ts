@@ -1,8 +1,6 @@
 import {Base, Document} from "./base"
 import { firestore } from "firebase-admin"
-import * as moment from "moment"
-import { toDate } from "../utils/date"
-import { OtherExample, OTHER_EXAMPLE_OBJECT } from "./otherExample";
+import { toMoment } from "../utils/date"
 
 export type ExampleDocument = Document & {
     id?: string
@@ -53,7 +51,7 @@ export class Example extends Base {
         snap.forEach(example => {
             let fields = example.data()
             fields.id = example.id
-            fields = toDate(fields)
+            fields = toMoment(fields)
             examples.push(fields)
         })
         return examples
