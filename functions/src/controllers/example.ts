@@ -1,8 +1,9 @@
 import { Request, Response } from "express"
 import { Example, ExampleDocument } from "../models/example"
 import * as rp from "request-promise-native"
-import * as moment from 'moment-timezone';
-import { toMoment } from "../utils/date";
+import * as moment from 'moment-timezone'
+import { toMoment } from "../utils/date"
+import { ENV }  from "../config/env"
 
 export class SoloGameController{
     private async callEndpoint(body) {
@@ -11,7 +12,7 @@ export class SoloGameController{
             result = await rp({
                 "method": 'POST',
                 "headers": {'content-type' : 'application/json'},
-                "uri": 'https://example.url',
+                "uri": ENV.exampleUrl,
                 "body": body,
                 "json": true
             })
