@@ -62,4 +62,19 @@ export abstract class Base {
         return docs
     }
 
+    
+    async loadAll() {
+        const snap = await this.db.get()
+        if (!snap) return null
+        const docs = []
+        snap.docs.forEach(doc => {
+            let fields = doc.data()
+            fields.id = doc.id
+            fields = toMoment(fields)
+            docs.push({id: doc.id, fields})
+        })
+        if (docs.length === 1) return docs[0]
+        if (docs instanceof Array && docs.length === 0) return false
+        return docs
+    }
 }
