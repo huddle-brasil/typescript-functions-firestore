@@ -44,7 +44,7 @@ export class SoloGameController{
     }
 
     async route_getJSON(req: Request, res: Response) {
-        const exampleId = res.get("exampleId") || req.query.exampleId
+        const exampleId = req.params.exampleId
         if (!exampleId) return res.status(400).send({"response": "exampleId is necessary"})
         const example = new Example()
         if (!await example.load(exampleId)) return res.status(400).send({"response": "example not found", exampleId: exampleId})
