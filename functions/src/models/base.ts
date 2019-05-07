@@ -46,6 +46,21 @@ export abstract class Base {
         this.id = id
         return this
     }
+    
+    async loadAll() {
+        const snap = await this.db.get()
+        if (!snap) return null
+        const docs = []
+        snap.docs.forEach(doc => {
+            let fields = doc.data()
+            fields.id = doc.id
+            fields = toMoment(fields)
+            docs.push({id: doc.id, fields})
+        })
+        if (docs.length === 1) return docs[0]
+        if (docs instanceof Array && docs.length === 0) return false
+        return docs
+    }
 
     async loadByProperty(property: string, value: any) {
         const snap = await this.db.where(property, '==', value).get()
@@ -62,13 +77,13 @@ export abstract class Base {
         return docs
     }
 
-    
-    async loadAll() {
+    async loadContainsInProperty(property: string, value: any) {
         const snap = await this.db.get()
         if (!snap) return null
         const docs = []
-        snap.docs.forEach(doc => {
+        snap.forEach(doc => {
             let fields = doc.data()
+            if (fields[property].every(item => item !== value)) return
             fields.id = doc.id
             fields = toMoment(fields)
             docs.push({id: doc.id, fields})
