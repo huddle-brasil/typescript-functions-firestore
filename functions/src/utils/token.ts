@@ -5,7 +5,7 @@ export type TokenPayload = {
     userId: string
 }
 export class Token {
-    private static secret = "Huddle!2018#"
+    private static secret = "secretKey"
     static generate(payload: TokenPayload, expiresIn = "24h") {
         const token = jwt.sign(payload, this.secret, {expiresIn})
         return token
