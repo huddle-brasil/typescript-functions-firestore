@@ -47,6 +47,10 @@ export abstract class Base {
         return this
     }
     
+    async delete(id: string) {
+        return await this.db.doc(id).delete()
+    }
+    
     async loadAll() {
         const snap = await this.db.get()
         if (!snap) return null
